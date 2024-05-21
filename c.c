@@ -20,6 +20,8 @@ BENCHMARK RESULTS (measured in milliseconds):
 
 */
 
+// Godbolt decomp (-O3): https://godbolt.org/z/b4TnG9sne
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <memory.h>
