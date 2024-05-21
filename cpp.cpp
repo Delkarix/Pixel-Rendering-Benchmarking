@@ -20,6 +20,9 @@ BENCHMARK RESULTS (measured in seconds/milliseconds):
 
 */
 
+// Godbolt link: https://godbolt.org/z/4sETTnhM9
+// 5459 instructions
+
 #include <iostream>
 #include <cstdio>
 #include <cstring>
