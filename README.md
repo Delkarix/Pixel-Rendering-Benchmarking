@@ -1,9 +1,7 @@
 # Summary
 **NOTE**: If it is difficult to read the files, copy-and-paste them into a normal text editor (some of the tabulation will be a little broken though due to REPL's/VS Code's weirdness)
 
-**NOTE 2**: C generally appears to be dramatically faster because it uses a much more primitive algorithm. C++, Rust, and D all use high-level String operations while C uses manual byte manipulation.
-
-**NOTE 3**: It's likely that a massive chunk of the processing time is due to memory writing. It's extremely difficult (if not impossible) to accurately externally benchmark these programs without the initial overhead. I suppose that's also a mark on the efficiency of program startup and pixel-writing as well.
+**NOTE 2**: It's likely that a massive chunk of the processing time is due to the initial pixel writing (memory writing). It's extremely difficult (if not impossible) to accurately externally benchmark these programs without the initial overhead. I suppose that's also a mark on the efficiency of program startup and pixel-writing as well.
 
 **RULE-OF-THUMB**: -O1 is generally (almost always) 10x faster than -O0. Higher optimization levels are better but have diminishing returns.
 
@@ -12,6 +10,9 @@ Overall, the ranking (ranked in order of fastest to slowest) follows as such:
 2. Rust
 3. C++
 4. D
+
+C generally appears to be dramatically faster because it uses a much more primitive algorithm. C++, Rust, and D all use high-level String operations (incur runtime allocation costs due to repeated string reallocations) while C uses manual byte manipulation and one-time AOT allocations.
+Due to this, C starts out 10x faster than the other algorithms but has a much flatter optimization curve.
 
 Interestingly, Rust's `--release` option produced worst-possible code for all variants. Thus, we're not even going to consider it here.
 
