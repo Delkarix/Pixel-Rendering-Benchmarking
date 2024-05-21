@@ -1,7 +1,9 @@
 # Summary
 **NOTE**: If it is difficult to read the files, copy-and-paste them into a normal text editor (some of the tabulation will be a little broken though due to REPL's/VS Code's weirdness)
 
-**NOTE 2**: It's likely that a massive chunk of the processing time is due to the initial pixel writing (memory writing). It's extremely difficult (if not impossible) to accurately externally benchmark these programs without the initial overhead. I suppose that's also a mark on the efficiency of program startup and pixel-writing as well.
+**NOTE 2**: It's likely that a massive chunk of the processing time is due to the initial pixel writing (memory writing). It's extremely difficult (if not impossible) to accurately externally benchmark these programs without the initial overhead. I suppose that's also a mark on the efficiency of program startup, stdout writing, and pixel-writing as well.
+
+**NOTE 3**: Consider D's outputs (particularly the *Variable* part) to be invalid. Some weird voodoo shit is going on with the compiler and now it's not even compiling the original properly. I suspend it's something to do with `stdout` buffering or the `write` function.
 
 **RULE-OF-THUMB**: -O1 is generally (almost always) 10x faster than -O0. Higher optimization levels are better but have diminishing returns.
 
