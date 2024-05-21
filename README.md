@@ -1,5 +1,5 @@
 # Summary
-**NOTE**: If it is difficult to read the files, copy-and-paste them into a normal text editor (some of the tabulation will be a little broken though due to REPL's weirdness)
+**NOTE**: If it is difficult to read the files, copy-and-paste them into a normal text editor (some of the tabulation will be a little broken though due to REPL's/VS Code's weirdness)
 
 **NOTE 2**: C generally appears to be dramatically faster because it uses a much more primitive algorithm. C++, Rust, and D all use high-level String operations while C uses manual byte manipulation.
 
