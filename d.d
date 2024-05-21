@@ -20,6 +20,9 @@ BENCHMARK RESULTS (measured in seconds/milliseconds):
 
 */
 
+// Godbolt link: https://godbolt.org/z/YPxWsnnx6
+// 22224 Instructions
+
 import std.stdio;
 import std.random;
 import std.datetime;
