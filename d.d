@@ -126,7 +126,7 @@ void main(string[] args) {
 			case 'v':
 				for (int i = 0; i < WIDTH*HEIGHT; i++) {
 					pixels[i] = color;
-                    color = Color(color.toInt() + 1);
+                    color = Color(color.toInt() + 1);	// Change this to a cast
 				}
 				break;
             default:
