@@ -1,16 +1,17 @@
 # Summary
-NOTE: If it is difficult to read the files, copy-and-paste them into a normal text editor (some of the tabulation will be a little broken though due to REPL's weirdness)
+**NOTE**: If it is difficult to read the files, copy-and-paste them into a normal text editor (some of the tabulation will be a little broken though due to REPL's weirdness)
 
-NOTE: C generally appears to be dramatically faster because it uses a much more primitive algorithm. C++, Rust, and D all use String operations while C uses manual byte manipulation.
-RULE-OF-THUMB: -O1 is generally (almost always) 10x faster than -O0. Higher optimization levels are better but have diminishing returns.
+**NOTE**: C generally appears to be dramatically faster because it uses a much more primitive algorithm. C++, Rust, and D all use String operations while C uses manual byte manipulation.
+
+**RULE-OF-THUMB**: -O1 is generally (almost always) 10x faster than -O0. Higher optimization levels are better but have diminishing returns.
 
 Overall, the ranking (ranked in order of fastest to slowest) follows as such:
-	1. C
-	2. Rust
-	3. C++
-	4. D
+1. C
+2. Rust
+3. C++
+4. D
 
-Interestingly, Rust's --release option produced worst-possible code for all variants. Thus, we're not even going to consider it here.
+Interestingly, Rust's `--release` option produced worst-possible code for all variants. Thus, we're not even going to consider it here.
 
 ## Comparison
 ### Random
@@ -30,10 +31,10 @@ Ranking:
 |  C++    |    D    |    D    |    D    |
 
 Overall:
-	1. C
-	2. Rust
-	3. C++
-	4. D
+1. C
+2. Rust
+3. C++
+4. D
 
 Maybe we should calculate (multiplicatively) how much slower each language is than its predecessor?
 
@@ -55,10 +56,10 @@ Using the "actual" values calculated with the multi-pass loop division.
 |  Rust   |   Rust  |   Rust  |   C++   |
 
 Overall:
-	1. D
-	2. C++
-	3. C
-	4. Rust
+1. D
+2. C++
+3. C
+4. Rust
 
 Generally, higher optimization levels tend to cause these values to converge so take them with a grain of salt: the difference isn't as big as you'd think.
 Interesting how -O3 tends to take as long or slightly longer than -O2. Might want to take this into consideration for future projects.
@@ -81,7 +82,7 @@ Interesting how -O3 tends to take as long or slightly longer than -O2. Might wan
 Seems like D had a lot of trouble optimizing this one. Probably the shitty `color = Color(color.toInt() + 1);` statement.
 
 Overall:
-	1. C
-	2. Rust
-	3. C++
-	4. D
+1. C
+2. Rust
+3. C++
+4. D
