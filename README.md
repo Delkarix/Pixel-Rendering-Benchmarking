@@ -67,6 +67,8 @@ Generally, higher optimization levels tend to cause these values to converge so 
 Interesting how -O3 tends to take as long or slightly longer than -O2. Might want to take this into consideration for future projects.
 
 ### Variable
+Note that each of these use a slightly different algorithm so take these with a grain of salt.
+
 |language|   -O0   |   -O1   |   -02   |   -O3   | Release |
 |--------|---------|---------|---------|---------|---------|
 |   C    | 141.5ms | 133.4ms | 134.3ms | 130.8ms |    -    |
@@ -103,16 +105,17 @@ Overall:
 4. D
 
 ### Instruction Count
-# TODO: ONLY -O3 IS FILLED IN
-|language|   -O0   |   -O1   |   -02   |   -O3   | Release |
-|--------|---------|---------|---------|---------|---------|
-|   C    | 141.5ms | 133.4ms | 134.3ms | 209     |    -    |
-|  C++   | 2.531s  | 226.1ms | 219.5ms | 5459    |    -    |
-|  Rust  | 522.7ms | 145.1ms | 152.4ms | 33771   | 1.391s  |
-|   D    | 1.623s  | 995.9ms | 989.5ms | 22224   |    -    |
+|language|   -O0   |   -O1   |   -02   |   -O3   |
+|--------|---------|---------|---------|---------|
+|   C    |   248   |   192   |   209   |   209   |
+|  C++   |   3401  |  3752   |  4232   |  5459   |
+|  Rust  |  51973  |  31011  |  33642  |  33771  |
+|   D    |  27352  |  22224  |  21191  |  22224  |
+
+Rust may have even more code due to how I generated the ASM files (`cargo rustc -- -C opt-level=3 --emit asm`)
 
 Overall:
-1.
-2.
-3.
-4.
+1. C
+2. C++
+3. D
+4. Rust
