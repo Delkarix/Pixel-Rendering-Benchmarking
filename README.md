@@ -1,7 +1,7 @@
 # Summary
 **NOTE**: If it is difficult to read the files, copy-and-paste them into a normal text editor (some of the tabulation will be a little broken though due to REPL's weirdness)
 
-**NOTE 2**: C generally appears to be dramatically faster because it uses a much more primitive algorithm. C++, Rust, and D all use String operations while C uses manual byte manipulation.
+**NOTE 2**: C generally appears to be dramatically faster because it uses a much more primitive algorithm. C++, Rust, and D all use high-level String operations while C uses manual byte manipulation.
 
 **NOTE 3**: It's likely that a massive chunk of the processing time is due to memory writing. It's extremely difficult (if not impossible) to accurately externally benchmark these programs without the initial overhead. I suppose that's also a mark on the efficiency of program startup and pixel-writing as well.
 
