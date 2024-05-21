@@ -81,7 +81,20 @@ Interesting how -O3 tends to take as long or slightly longer than -O2. Might wan
 |    D    |   C++   |   C++   |   C++   |
 |   C++   |    D    |    D    |    D    |
 
-Seems like D had a lot of trouble optimizing this one. Probably the shitty `color = Color(color.toInt() + 1);` statement.
+Seems like D had a lot of trouble optimizing this one. Probably the shitty `color = Color(color.toInt() + 1);` statement. However, after going back and changing
+```d
+color = Color(color.toInt() + 1);
+```
+to
+```d
+uint val;
+...
+val = *cast(uint*)(&color) + 1;
+color = *cast(Color*)(&val);
+```
+the execution time became **dramatically** slower. It went from ~900ms to *8 seconds* on -O3, which is ridiculous and I'm not sure why it's doing that.
+Unless my logic sucks, it seems like something is making the compiler shit the bed.
+
 
 Overall:
 1. C
