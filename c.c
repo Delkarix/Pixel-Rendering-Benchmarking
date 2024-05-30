@@ -20,8 +20,6 @@ BENCHMARK RESULTS (measured in milliseconds):
 
 */
 
-// Godbolt decomp (-O3): https://godbolt.org/z/b4TnG9sne
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <memory.h>
@@ -110,10 +108,13 @@ int main(int argc, char** argv) {
 		}
 
 
+		clock_t begin = clock();
 		for (int i = 0; i < CYCLES; i++) {
             RenderImage(pixels, buffer, WIDTH, HEIGHT);
 			printf("\x1b[H%s", buffer);
 		}
+		clock_t diff = clock() - begin;
+		printf("Diff: %ld\n", diff);
 		
 		free(pixels);
         free(buffer);

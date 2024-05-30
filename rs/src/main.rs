@@ -21,8 +21,20 @@ BENCHMARK RESULTS (measured in seconds/milliseconds):
 
 use std::env;
 use rand::Rng;
+extern crate libc;
 
 pub type Color = (u8, u8, u8, u8);
+
+pub type clock_t = ::libc::clock_t;
+
+union Converter {
+    color: Color,
+    argb: u32
+}
+
+extern {
+    pub fn clock() -> clock_t;
+}
 
 const WIDTH: u32 = 1000;
 const HEIGHT: u32 = 1000;
@@ -63,7 +75,10 @@ fn renderToString(pixels: &[Color], width: u32, height: u32) -> String {
 fn main() {
     let args: Vec<String> = env::args().collect();
     let mut pixels: Vec<Color> = vec![(0, 0, 0, 0); (WIDTH*HEIGHT) as usize];
-    let mut j = 0;
+    let mut color_box: Box<Color> = Box::new((0, 0, 0, 0));
+    let color_ptr: *mut Color = pixels.as_mut_ptr();
+    //let mut conv: u32;
+    let mut conv_ptr: *mut u32;
 
     if args.len() > 1 {
         match args[1].as_bytes()[0] {
@@ -77,18 +92,22 @@ fn main() {
             // No s needed (handled by default)
             b'v' => {
                 for i in 0..WIDTH*HEIGHT {
-                    pixels[i as usize].1 = j;
-                    pixels[i as usize].2 = j;
-                    pixels[i as usize].3 = j;
-
-                    j = (j + 1) % 255;
+                    unsafe {
+                        conv_ptr = color_ptr.add(i as usize) as *mut u32;
+                        *conv_ptr += 1;
+                        //pixels[i as usize] = *(conv_ptr as *mut Color);
+                    }
                 }
             },
             _ => ()
         }
     }
 
+    let begin: clock_t = unsafe {clock()};
     for i in 0..CYCLES {
         print!("\x1b[H{}", renderToString(&pixels, WIDTH, HEIGHT));
     }
+    let diff: clock_t = unsafe {clock() - begin};
+
+    println!("{}", diff);
 }

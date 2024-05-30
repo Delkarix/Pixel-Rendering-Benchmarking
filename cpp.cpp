@@ -20,15 +20,12 @@ BENCHMARK RESULTS (measured in seconds/milliseconds):
 
 */
 
-// Godbolt link: https://godbolt.org/z/4sETTnhM9
-// 5459 instructions
-
 #include <iostream>
 #include <cstdio>
 #include <cstring>
 #include <cstdlib>
 #include <ctime>
-#include <format>
+//#include <format>
 
 #define WIDTH 1000
 #define HEIGHT 1000
@@ -52,6 +49,7 @@ std::string renderToString(RGB* pixels, unsigned short width, unsigned short hei
 
 	std::string string_buffer = "";
 	size_t count = 0;
+	char buffer[20];
 	
 	// Loop through the image's pixels
 	for (unsigned int i = 0; i < width*height; i++, count++) {
@@ -62,7 +60,9 @@ std::string renderToString(RGB* pixels, unsigned short width, unsigned short hei
 			current_color = color;
 			string_buffer.append(std::string(count, ' '));
 
-			string_buffer.append(std::format("\x1b[48;2;{};{};{}m", current_color.R, current_color.G, current_color.B));
+			std::snprintf(buffer, 20, "\x1b[48;2;%u;%u;%um",  current_color.R, current_color.G, current_color.B);
+			string_buffer.append(buffer);
+			//string_buffer.append(std::format("\x1b[48;2;{};{};{}m", current_color.R, current_color.G, current_color.B));
 			count = 0;
 		}
 	}
@@ -101,9 +101,12 @@ int main(int argc, char** argv) {
 		}
 
 
+		clock_t begin = clock();
 		for (int i = 0; i < CYCLES; i++) {
 			std::cout << "\x1b[H" << renderToString(pixels, WIDTH, HEIGHT);
 		}
+		clock_t diff = clock() - begin;
+		std::cout << diff;
 		
 		delete[] pixels;
 	}
