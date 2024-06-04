@@ -20,9 +20,6 @@ BENCHMARK RESULTS (measured in seconds/milliseconds):
 
 */
 
-// Godbolt link: https://godbolt.org/z/YPxWsnnx6
-// 22224 Instructions
-
 import std.stdio;
 import std.random;
 import std.datetime;
@@ -31,14 +28,14 @@ static import core.stdc.time;
 
 enum WIDTH = 1000;
 enum HEIGHT = 1000;
-enum CYCLES = 10;
+enum CYCLES = 1;
 
 // Represents an ARGB color value.
 struct Color {
-	ubyte alpha; // The value of the Alpha channel.
-	ubyte red; // The value of the Red channel.
+	ubyte blue; // The value of the Red channel.
 	ubyte green; // The value of the Green channel.
-	ubyte blue; // The value of the Blue channel.
+	ubyte red; // The value of the Blue channel.
+	ubyte alpha; // The value of the Alpha channel.
 
 	this(ubyte a, ubyte r, ubyte g, ubyte b) {
 		alpha = a;
@@ -56,8 +53,20 @@ struct Color {
 	}
 
 	uint toInt() {
+		// Should change this to a pointer calculation
 		return (alpha << 24) + (red << 16) + (green << 8) + blue;
 	}
+}
+
+union Converter {
+	Color color;
+	uint argb;
+}
+
+alias clock_t = long;
+
+extern(C) {
+    clock_t clock();
 }
 
 // Returns a string that's been repeated n-times.
@@ -112,6 +121,7 @@ void main(string[] args) {
         Color* pixels = &_pixels[0];
 		Color color = Color(0);
         Random r = Random();
+		Converter conv;
 
 		switch (args[1][0]) {
 			case 'r':
@@ -129,16 +139,24 @@ void main(string[] args) {
 			case 'v':
 				for (int i = 0; i < WIDTH*HEIGHT; i++) {
 					pixels[i] = color;
-                    color = Color(color.toInt() + 1);	// Change this to a cast
+					conv.color = color;
+					conv.argb++;
+					color = conv.color;
+                    //color = Color(color.toInt() + 1); // Change this to a cast
+					//val = *cast(uint*)(&color) + 1; // WAYYYY too slow
+					//color = *cast(Color*)(&val);
 				}
 				break;
             default:
                 break;
 		}
 
-
+		clock_t begin = clock();
 		for (int i = 0; i < CYCLES; i++) {
             write(RenderToString(pixels, WIDTH, HEIGHT));
 		}
+		clock_t diff = clock() - begin;
+
+		writeln(diff);
     }
 }

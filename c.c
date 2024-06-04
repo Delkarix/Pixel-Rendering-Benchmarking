@@ -37,10 +37,10 @@ static const size_t reset_color_size = 3;
 
 typedef union {
   struct {
-		unsigned char A;
-		unsigned char R;
-		unsigned char G;
 		unsigned char B;
+		unsigned char G;
+		unsigned char R;
+		unsigned char A;
 	};
 
 	unsigned int argb;
@@ -95,14 +95,16 @@ int main(int argc, char** argv) {
 
 				break;
 			case 's':
-				for (int i = 0; i < WIDTH*HEIGHT; i++) {
+				/*for (int i = 0; i < WIDTH*HEIGHT; i++) {
 					pixels[i].argb = 0;
-				}
+				}*/
+				memset(pixels, 0, WIDTH*HEIGHT*sizeof(Color));
 
 				break;
 			case 'v':
 				for (int i = 0; i < WIDTH*HEIGHT; i++) {
 					pixels[i].argb = color.argb++;
+					//printf("%u %u %u\n", color.R, color.G, color.B);
 				}
 				break;
 		}

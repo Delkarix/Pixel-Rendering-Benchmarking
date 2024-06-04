@@ -84,9 +84,9 @@ fn main() {
         match args[1].as_bytes()[0] {
             b'r' => {
                 for i in 0..WIDTH*HEIGHT {
+                    pixels[i as usize].0 = rand::thread_rng().gen_range(0..=255);
                     pixels[i as usize].1 = rand::thread_rng().gen_range(0..=255);
                     pixels[i as usize].2 = rand::thread_rng().gen_range(0..=255);
-                    pixels[i as usize].3 = rand::thread_rng().gen_range(0..=255);
                 }
             },
             // No s needed (handled by default)
